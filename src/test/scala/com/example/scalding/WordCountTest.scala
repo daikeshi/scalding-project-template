@@ -1,7 +1,9 @@
 package com.example.scalding
 
-import org.specs2._
 import com.twitter.scalding._
+import org.apache.hadoop.mapred.JobConf
+import org.apache.hadoop.util.ToolRunner
+import org.specs2._
 
 class WordCountTest extends mutable.Specification {
   "A WordCount job" should {
@@ -16,5 +18,20 @@ class WordCountTest extends mutable.Specification {
           outMap("and") === 1
         }
       }.run.finish
+  }
+
+  "A WordCount job" should {
+    "run locally" in {
+      val args = Array(
+        "com.example.scalding.WordCountJob",
+        "--hdfs",
+        "--input", "data/alice.txt",
+        "--output", "target/output",
+        "--trap-dir", "target/trap",
+        "--tool.partialok"
+      )
+
+      ToolRunner.run(new JobConf, new Tool, args) === 0
+    }
   }
 }
