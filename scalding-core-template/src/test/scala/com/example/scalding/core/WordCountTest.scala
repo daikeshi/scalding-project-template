@@ -26,8 +26,8 @@ class WordCountTest extends mutable.Specification {
         "com.example.scalding.core.WordCountJob",
         "--hdfs",
         "--input", "data/alice.txt",
-        "--output", "target/output",
-        "--trap-dir", "target/trap",
+        "--output", "output/core",
+        "--trap-dir", "trap/core",
         "--tool.partialok"
       )
 
